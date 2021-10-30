@@ -18,12 +18,26 @@ jobs:
     strategy:
       matrix:
         include:
-          - name: Release
+          # By default only linux has a release job.
+          # This is to keep within the 5GB cache limit as rust can use a lot of space!
+          # There are also more limits here but I dont think there is much risk of hitting them: https://docs.github.com/en/actions/learn-github-actions/usage-limits-billing-and-administration#usage-limits
+          #
+          # If you dont use much of the cache feel free to add more release jobs.
+          # If you do hit the cache and there are jobs that are not important for your project remove them or disable caching for them.
+          - name: LinuxRelease
+            runner: ubuntu-latest
             cargo_profile: --release
-          - name: Debug
+          - name: LinuxDebug
+            runner: ubuntu-latest
+            cargo_profile:
+          - name: Windows
+            runner: windows-latest
+            cargo_profile:
+          - name: MacOS
+            runner: macos-latest
             cargo_profile:
     name: ${{ matrix.name }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
     steps:
     - uses: actions/checkout@v2
     - uses: actions-rs/toolchain@v1
