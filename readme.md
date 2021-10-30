@@ -47,4 +47,13 @@ It pairs well with [Homu](https://github.com/barosl/homu) in providing a robust 
 
 I don't actually have a large scale library to try this on. 😅
 So for now I'm just trying it on [Winit Input Helper](https://github.com/rukai/winit_input_helper) even though it is not even close to the scale of development at which I would recommend this approach.
-I would like to hear if there are any libraries doing something similar and I'll include them here.
+I would like to hear if there are any libraries doing something similar and I'll mention them here.
+
+## License
+
+Licensed under either of
+
+ * Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or http://www.apache.org/licenses/LICENSE-2.0)
+ * MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
+
+at your option.
