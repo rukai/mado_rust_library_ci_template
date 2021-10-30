@@ -3,5 +3,14 @@
 version = 3
 
 [[package]]
+name = "crate_that_i_break_sometimes_for_testing"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "f6b7cbc3a7bbc4356850783474b6f1d0ea2426db1d96dd42f862d122152e0639"
+
+[[package]]
 name = "mado_template"
 version = "0.1.0"
+dependencies = [
+ "crate_that_i_break_sometimes_for_testing",
+]

@@ -1,16 +1,14 @@
-name: Testing
+# Runs `cargo update` and then reports build failures in a GitHub issue titled "Nightly deps check failed"
+# If an open issue with the same title already exists then another issue is not created.
+
+name: Nightly Deps Check
 
 on:
-  # Make sure to change these if your still using "master" for the name of your main branch.
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-# Cancel already running jobs
-concurrency:
-  group: testing_${{ github.head_ref }}
-  cancel-in-progress: true
+  # Allows the workflow to be manually triggered from the github UI.
+  workflow_dispatch: {}
+  # Run once per day at 00:00 UTC
+  schedule:
+    - cron: '0 0 * * *'
 
 env:
   CARGO_TERM_COLOR: always
@@ -45,6 +43,8 @@ jobs:
         key: ${{ matrix.name }}
     - name: Install cargo-hack
       run: cargo install cargo-hack --version 0.5.8
+    - name: cargo update`
+      run: cargo update
     - name: Check `cargo fmt` was run
       run: cargo fmt --all -- --check
     # If your library does not support running under every possible combination of features,
@@ -56,3 +56,11 @@ jobs:
       run: cargo hack --feature-powerset clippy --all-targets --locked ${{ matrix.cargo_profile }} -- -D warnings
     - name: Ensure that tests pass under every possible combination of features in ${{ matrix.cargo_profile }} profile
       run: cargo test ${{ matrix.cargo_profile }}
+    - uses: JasonEtco/create-an-issue@v2
+      if: ${{ failure() }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        NIGHTLY_DEPS_WORKFLOW_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+      with:
+        update_existing: true
+        filename: .github/NIGHTLY_DEPS_ISSUE_TEMPLATE.md
