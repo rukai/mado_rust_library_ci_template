@@ -47,7 +47,7 @@ I would like to hear if there are any libraries doing something similar and I'll
 
 ## Name
 
-It pairs well with [Homu](https://github.com/barosl/homu) in providing a robust "not rocket science" rule abiding CI ✨ (... although I think everyone actually uses bors-ng these days)
+It pairs well with [Homu](https://github.com/rust-lang/homu) in providing a robust "not rocket science" rule abiding CI ✨ (... although homu is specifically built around the needs of rust compiler development so your would be better off with [bors-ng](https://github.com/bors-ng/bors-ng) anyway)
 
 ## License
 
