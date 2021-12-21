@@ -26,13 +26,19 @@ For binaries you can do the same but skip step 4.
     + Especially powerful if you have your CI setup to benchmark PRs.
 + Bad dependency updates don't bring development to a halt.
   + Developers can continue their regular work, while one person investigates the dependency issue.
++ Reduces CI cache wastage.
+  + Pining dependency versions prevents cache usage from increasing every time a non-breaking dependency update is published.
+  + Better cache usage results in better CI build times!
 
 ## Disadvantages
 
 + Manually updating the rust release is a lot of extra effort.
-  + Because of this I wouldn't recommend using the template unless your project is merging at least one PR a day. Additionally if development slows down or goes into maintenence mode then going back to a regular CI setup is a good idea.
+  + Because of this I wouldn't recommend using the template unless your project is merging at least one PR a day. Additionally if development slows down or goes into maintenance mode then going back to a regular CI setup is a good idea.
 + Its easier to ignore an issue about broken dependencies than if you cant merge any PRs.
 + Have to manually delete old toolchains in rustup once they are unused.
++ Increases CI cache wastage.
+  + Cache usage drastically increases whenever a new rust version is set in `rust-toolchain.toml`.
+  + This template minimizes this problem by using a unique cache whenever `Cargo.lock`, `Cargo.lock` or `rust-toolchain.toml` is changed.
 
 ## Used by
 
